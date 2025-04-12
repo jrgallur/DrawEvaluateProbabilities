@@ -38,7 +38,7 @@ class HigherWhenLastAppearanceIsOlderTest {
         when(numberProbabilityTypePort.getByCode(any())).thenReturn(new NumberProbabilityType());
     }
 
-    @Test
+    //@Test
     void test_1() {
 
     }
