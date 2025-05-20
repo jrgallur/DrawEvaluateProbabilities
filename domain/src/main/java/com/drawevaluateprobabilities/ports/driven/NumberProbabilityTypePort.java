@@ -2,8 +2,10 @@ package com.drawevaluateprobabilities.ports.driven;
 
 import com.drawevaluateprobabilities.models.NumberProbabilityType;
 
-public interface NumberProbabilityTypePort {
-    void upsert(NumberProbabilityType numberProbabilityType);
+import java.util.List;
 
+public interface NumberProbabilityTypePort {
     NumberProbabilityType getByCode(String code);
+
+    List<NumberProbabilityType> findAll();
 }
