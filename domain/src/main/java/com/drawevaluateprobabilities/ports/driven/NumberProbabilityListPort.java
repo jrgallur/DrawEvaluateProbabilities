@@ -5,7 +5,7 @@ import com.drawevaluateprobabilities.models.types.TDateInteger;
 
 public interface NumberProbabilityListPort {
     void upsert(NumberProbabilityList numberProbabilityList);
-    boolean existsByNumberProbabilityTypeAndDrawDate(Short numberProbabilityTypeId, TDateInteger drawdate);
+    boolean existsByProbabilityTypeAndDrawDate(Short probabilityTypeId, TDateInteger drawdate);
 
-    NumberProbabilityList findByTypeAndDrawDate(Short numberProbabilityTypeId, TDateInteger drawDate);
+    NumberProbabilityList findByProbabilityTypeAndDrawDate(Short probabilityTypeId, TDateInteger drawDate);
 }

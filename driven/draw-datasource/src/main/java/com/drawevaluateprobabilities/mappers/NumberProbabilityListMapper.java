@@ -14,7 +14,7 @@ public interface NumberProbabilityListMapper {
     default NumberProbabilityListMO toModel(NumberProbabilityList numberProbabilityList) {
         return NumberProbabilityListMO.builder()
                 .date(numberProbabilityList.getCalculateDrawDate().toInteger())
-                .numberProbabilityTypeId(numberProbabilityList.getType().getId())
+                .probabilityTypeId(numberProbabilityList.getType().getId())
                 .values(numberListToString(numberProbabilityList.getNumberList()))
                 .build();
     }
@@ -29,7 +29,7 @@ public interface NumberProbabilityListMapper {
 
     default NumberProbabilityList toDomain(NumberProbabilityListMO numberProbabilityListMO) {
         NumberProbabilityList numberProbabilityList = new NumberProbabilityList();
-        numberProbabilityList.setType(NumberProbabilityType.builder().id(numberProbabilityListMO.getNumberProbabilityTypeId()).build());
+        numberProbabilityList.setType(ProbabilityType.builder().id(numberProbabilityListMO.getProbabilityTypeId()).build());
         numberProbabilityList.setCalculateDrawDate(new TDateInteger(numberProbabilityListMO.getDate()));
         numberProbabilityList.setNumberList(stringToNumberList(numberProbabilityListMO.getValues()));
 

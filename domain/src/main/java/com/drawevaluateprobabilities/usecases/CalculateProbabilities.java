@@ -1,13 +1,13 @@
 package com.drawevaluateprobabilities.usecases;
 
 import com.drawevaluateprobabilities.models.DrawList;
-import com.drawevaluateprobabilities.models.NumberProbabilityType;
+import com.drawevaluateprobabilities.models.ProbabilityType;
 import com.drawevaluateprobabilities.models.ProbabilityTypeWeight;
 import com.drawevaluateprobabilities.models.ProbabilityTypeCombination;
 import com.drawevaluateprobabilities.models.types.TDateInteger;
 import com.drawevaluateprobabilities.ports.driven.DrawDatasourcePort;
 import com.drawevaluateprobabilities.ports.driven.NumberProbabilityListPort;
-import com.drawevaluateprobabilities.ports.driven.NumberProbabilityTypePort;
+import com.drawevaluateprobabilities.ports.driven.ProbabilityTypePort;
 import com.drawevaluateprobabilities.services.GenerateCombinationTypes;
 import com.drawevaluateprobabilities.services.calculators.HigherWhenLastAppearanceIsOlder;
 import lombok.AllArgsConstructor;
@@ -25,7 +25,7 @@ import java.util.List;
 public class CalculateProbabilities {
     private final DrawDatasourcePort drawDatasourcePort;
     private final NumberProbabilityListPort numberProbabilityListPort;
-    private final NumberProbabilityTypePort numberProbabilityTypePort;
+    private final ProbabilityTypePort probabilityTypePort;
 
 
     @Autowired
@@ -45,22 +45,22 @@ public class CalculateProbabilities {
     }
 
     private void getCombinationList() {
-        List<NumberProbabilityType> numberProbabilityTypeList = new ArrayList<>();
-        numberProbabilityTypeList.add(NumberProbabilityType.builder().code("0000").build());
-        numberProbabilityTypeList.addAll(numberProbabilityTypePort.findAll());
+        List<ProbabilityType> probabilityTypeList = new ArrayList<>();
+        probabilityTypeList.add(ProbabilityType.builder().code("0000").build());
+        probabilityTypeList.addAll(probabilityTypePort.findAll());
 
         log.info("#######");
-        for (NumberProbabilityType numberProbabilityType : numberProbabilityTypeList) {
-            log.info(numberProbabilityType.getCode());
+        for (ProbabilityType probabilityType : probabilityTypeList) {
+            log.info(probabilityType.getCode());
         }
         log.info("#######");
-        List<ProbabilityTypeCombination> probabilityTypeCombinationList =  GenerateCombinationTypes.getCombinationsFromTypeList(numberProbabilityTypeList);
+        List<ProbabilityTypeCombination> probabilityTypeCombinationList =  GenerateCombinationTypes.getCombinationsFromTypeList(probabilityTypeList);
         int cont = 1;
         for (ProbabilityTypeCombination probabilityTypeCombination : probabilityTypeCombinationList) {
             String result = String.valueOf(cont) + ": ";
             List<ProbabilityTypeWeight> probabilityTypeWeightList = probabilityTypeCombination.getCombination();
             for (ProbabilityTypeWeight probabilityTypeWeight : probabilityTypeWeightList) {
-                result += probabilityTypeWeight.getNumberProbabilityType().getCode() + "-" + probabilityTypeWeight.getWeight() + " ";
+                result += probabilityTypeWeight.getProbabilityType().getCode() + "-" + probabilityTypeWeight.getWeight() + " ";
             }
             log.info(result);
 

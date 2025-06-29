@@ -1,11 +1,10 @@
 package com.drawevaluateprobabilities.services.calculators.ifaces;
 
-import com.drawevaluateprobabilities.exceptions.NumberProbabilityTypeNotFoundException;
+import com.drawevaluateprobabilities.exceptions.ProbabilityTypeNotFoundException;
 import com.drawevaluateprobabilities.models.NumberProbabilityList;
-import com.drawevaluateprobabilities.models.NumberProbabilityType;
 import com.drawevaluateprobabilities.models.types.TDateInteger;
 import com.drawevaluateprobabilities.ports.driven.NumberProbabilityListPort;
-import com.drawevaluateprobabilities.ports.driven.NumberProbabilityTypePort;
+import com.drawevaluateprobabilities.ports.driven.ProbabilityTypePort;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -18,30 +17,30 @@ import java.util.stream.IntStream;
 public abstract class ProbabilityType {
     public static final int DIVIDE_SCALE = 10;
     public static final RoundingMode ROUNDING_MODE = RoundingMode.HALF_UP;
-    private NumberProbabilityType numberProbabilityType;
+    private com.drawevaluateprobabilities.models.ProbabilityType probabilityType;
 
-    private final NumberProbabilityTypePort numberProbabilityTypePort;
+    private final ProbabilityTypePort probabilityTypePort;
     private final NumberProbabilityListPort numberProbabilityListPort;
 
-    protected ProbabilityType(NumberProbabilityTypePort numberProbabilityTypePort, NumberProbabilityListPort numberProbabilityListPort) {
-        this.numberProbabilityTypePort = numberProbabilityTypePort;
+    protected ProbabilityType(ProbabilityTypePort probabilityTypePort, NumberProbabilityListPort numberProbabilityListPort) {
+        this.probabilityTypePort = probabilityTypePort;
         this.numberProbabilityListPort = numberProbabilityListPort;
     }
 
     public abstract String getTypeCode();
 
     public NumberProbabilityList getNumberProbabilityListByDate(TDateInteger calculationDrawDate) {
-        return numberProbabilityListPort.findByTypeAndDrawDate(getNumberProbabilityType().getId(), calculationDrawDate);
+        return numberProbabilityListPort.findByProbabilityTypeAndDrawDate(getProbabilityType().getId(), calculationDrawDate);
     }
 
-    public NumberProbabilityType getNumberProbabilityType() {
-        if (numberProbabilityType == null) {
-            numberProbabilityType = numberProbabilityTypePort.getByCode(getTypeCode());
-            if (numberProbabilityType == null) {
-                throw new NumberProbabilityTypeNotFoundException();
+    public com.drawevaluateprobabilities.models.ProbabilityType getProbabilityType() {
+        if (probabilityType == null) {
+            probabilityType = probabilityTypePort.getByCode(getTypeCode());
+            if (probabilityType == null) {
+                throw new ProbabilityTypeNotFoundException();
             }
         }
-        return numberProbabilityType;
+        return probabilityType;
     }
 
     protected NumberProbabilityList correctStatistics(NumberProbabilityList numberProbabilityList) {

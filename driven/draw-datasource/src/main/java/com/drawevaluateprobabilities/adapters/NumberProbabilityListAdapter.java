@@ -10,7 +10,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -23,7 +22,7 @@ public class NumberProbabilityListAdapter implements NumberProbabilityListPort {
     @Override
     public void upsert(NumberProbabilityList numberProbabilityList) {
         NumberProbabilityListMO numberProbabilityListMO = mapper.toModel(numberProbabilityList);
-        Optional<NumberProbabilityListMO> numberProbabilityListMOList = repository.findByNumberProbabilityTypeIdAndDate(numberProbabilityListMO.getNumberProbabilityTypeId(), numberProbabilityListMO.getDate());
+        Optional<NumberProbabilityListMO> numberProbabilityListMOList = repository.findByProbabilityTypeIdAndDate(numberProbabilityListMO.getProbabilityTypeId(), numberProbabilityListMO.getDate());
         if (numberProbabilityListMOList.isPresent()) {
             numberProbabilityListMOList.get().setValues(numberProbabilityListMO.getValues());
             repository.save(numberProbabilityListMOList.get());
@@ -33,12 +32,12 @@ public class NumberProbabilityListAdapter implements NumberProbabilityListPort {
     }
 
     @Override
-    public boolean existsByNumberProbabilityTypeAndDrawDate(Short numberProbabilityType, TDateInteger drawdate) {
-        return repository.existsByNumberProbabilityTypeIdAndDate(numberProbabilityType, drawdate.toInteger());
+    public boolean existsByProbabilityTypeAndDrawDate(Short probabilityTypeId, TDateInteger drawdate) {
+        return repository.existsByProbabilityTypeIdAndDate(probabilityTypeId, drawdate.toInteger());
     }
 
     @Override
-    public NumberProbabilityList findByTypeAndDrawDate(Short numberProbabilityTypeId, TDateInteger drawDate) {
-        return mapper.toDomain(repository.findByNumberProbabilityTypeIdAndDate(numberProbabilityTypeId, drawDate.toInteger()).orElse(null));
+    public NumberProbabilityList findByProbabilityTypeAndDrawDate(Short probabilityTypeId, TDateInteger drawDate) {
+        return mapper.toDomain(repository.findByProbabilityTypeIdAndDate(probabilityTypeId, drawDate.toInteger()).orElse(null));
     }
 }

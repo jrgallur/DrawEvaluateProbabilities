@@ -34,14 +34,14 @@ public class ProbabilityTypeCombination {
         if (code==null) {
             List<ProbabilityTypeWeight> combinationAux = new ArrayList<>(getCombination());
             combinationAux.sort(
-                    Comparator.comparing(p -> p.getNumberProbabilityType().getCode())
+                    Comparator.comparing(p -> p.getProbabilityType().getCode())
             );
             StringBuilder sb = new StringBuilder();
             for (ProbabilityTypeWeight row : combinationAux) {
                 if (!sb.isEmpty()) {
                     sb.append("#");
                 }
-                sb.append("#").append(row.getNumberProbabilityType().getCode());
+                sb.append("#").append(row.getProbabilityType().getCode());
             }
             code = sb.toString();
         }

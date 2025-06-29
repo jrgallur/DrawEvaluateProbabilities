@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface NumberProbabilityListRepository extends JpaRepository<NumberProbabilityListMO, Short> {
-    List<NumberProbabilityListMO> findByNumberProbabilityTypeId(Short numberProbabilityType);
-    Optional<NumberProbabilityListMO> findByNumberProbabilityTypeIdAndDate(Short numberProbabilityType, Integer date);
-    boolean existsByNumberProbabilityTypeIdAndDate(Short numberProbabilityType, Integer date);
+    List<NumberProbabilityListMO> findByProbabilityTypeId(Short probabilityType);
+    Optional<NumberProbabilityListMO> findByProbabilityTypeIdAndDate(Short probabilityType, Integer date);
+    boolean existsByProbabilityTypeIdAndDate(Short probabilityType, Integer date);
 }

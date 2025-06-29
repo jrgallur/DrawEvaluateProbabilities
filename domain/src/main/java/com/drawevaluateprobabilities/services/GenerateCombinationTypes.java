@@ -1,6 +1,6 @@
 package com.drawevaluateprobabilities.services;
 
-import com.drawevaluateprobabilities.models.NumberProbabilityType;
+import com.drawevaluateprobabilities.models.ProbabilityType;
 import com.drawevaluateprobabilities.models.ProbabilityTypeWeight;
 import com.drawevaluateprobabilities.models.ProbabilityTypeCombination;
 
@@ -15,8 +15,8 @@ public class GenerateCombinationTypes {
         throw new IllegalStateException("Utility class");
     }
 
-    public static List<ProbabilityTypeCombination> getCombinationsFromTypeList(List<NumberProbabilityType> numberProbabilityTypeList) {
-        return new ArrayList<>(getCombinationsOrderN(numberProbabilityTypeList));
+    public static List<ProbabilityTypeCombination> getCombinationsFromTypeList(List<ProbabilityType> probabilityTypeList) {
+        return new ArrayList<>(getCombinationsOrderN(probabilityTypeList));
     }
 
     /**
@@ -24,14 +24,14 @@ public class GenerateCombinationTypes {
      * The sum of all of them must be 1
      * The vales must be STEP multiples (0, 0.1, 0.2, ..., 0.9, 1.0)
      */
-    public static List<ProbabilityTypeCombination> getCombinationsOrderN(List<NumberProbabilityType> types) {
+    public static List<ProbabilityTypeCombination> getCombinationsOrderN(List<ProbabilityType> types) {
         List<ProbabilityTypeCombination> result = new ArrayList<>();
 
         generateCombinations(types, new ArrayList<>(), BigDecimal.ZERO, STEP, result);
         return result;
     }
 
-    private static void generateCombinations(List<NumberProbabilityType> types,
+    private static void generateCombinations(List<ProbabilityType> types,
                                       List<BigDecimal> currentWeights,
                                       BigDecimal currentSum,
                                       BigDecimal step,
@@ -52,7 +52,7 @@ public class GenerateCombinationTypes {
                 for (int i = 0; i < size; i++) {
                     combination.addProbabilityTypeWeight(
                             ProbabilityTypeWeight.builder()
-                                    .numberProbabilityType(types.get(i))
+                                    .probabilityType(types.get(i))
                                     .weight(finalWeights.get(i))
                                     .build()
                     );

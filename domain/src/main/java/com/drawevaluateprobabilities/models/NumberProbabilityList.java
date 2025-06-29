@@ -16,7 +16,7 @@ import java.util.List;
 public class NumberProbabilityList {
     private List<BigDecimal> numberList;
     private TDateInteger calculateDrawDate;
-    private NumberProbabilityType type;
+    private ProbabilityType type;
 
     public NumberProbabilityList() {
         numberList = new ArrayList<>(Collections.nCopies(49, new BigDecimal(0)));

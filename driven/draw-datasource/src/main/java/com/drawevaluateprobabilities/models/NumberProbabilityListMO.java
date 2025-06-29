@@ -20,5 +20,5 @@ public class NumberProbabilityListMO {
 
     private String values;
 
-    private Short numberProbabilityTypeId;
+    private Short probabilityTypeId;
 }
