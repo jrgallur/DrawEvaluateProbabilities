@@ -1,6 +1,6 @@
 package com.drawevaluateprobabilities.services.calculators;
 
-import com.drawevaluateprobabilities.models.NumberProbabilityList;
+import com.drawevaluateprobabilities.models.ProbabilityTypeByDraw;
 import com.drawevaluateprobabilities.models.ProbabilityType;
 import com.drawevaluateprobabilities.models.types.TDateInteger;
 import com.drawevaluateprobabilities.ports.driven.ProbabilityTypePort;
@@ -44,10 +44,10 @@ class RandomTest {
 
     @Test
     void t3() {
-        NumberProbabilityList numberProbabilityList = service.getNumberProbabilityListByDate(TDateInteger.today());
-        assertNotNull(numberProbabilityList.getNumberList());
-        assertEquals(49, numberProbabilityList.getNumberList().size());
-        assertEquals(0, BigDecimal.ONE.compareTo(numberProbabilityList.getNumberList().stream().reduce(BigDecimal.ZERO, BigDecimal::add)));
+        ProbabilityTypeByDraw probabilityTypeByDraw = service.getProbabilityTypeByDrawByDate(TDateInteger.today());
+        assertNotNull(probabilityTypeByDraw.getNumberList());
+        assertEquals(49, probabilityTypeByDraw.getNumberList().size());
+        assertEquals(0, BigDecimal.ONE.compareTo(probabilityTypeByDraw.getNumberList().stream().reduce(BigDecimal.ZERO, BigDecimal::add)));
     }
 
 }

@@ -10,8 +10,8 @@ import javax.persistence.*;
 @Setter
 @Builder
 @Entity
-@Table(name = "number_probability_list")
-public class NumberProbabilityListMO {
+@Table(name = "probability_type_by_draw")
+public class ProbabilityTypeByDrawMO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

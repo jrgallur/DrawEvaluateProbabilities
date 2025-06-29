@@ -1,7 +1,7 @@
 package com.drawevaluateprobabilities.services.calculators;
 
 import com.drawevaluateprobabilities.models.ProbabilityType;
-import com.drawevaluateprobabilities.ports.driven.NumberProbabilityListPort;
+import com.drawevaluateprobabilities.ports.driven.ProbabilityTypeByDrawPort;
 import com.drawevaluateprobabilities.ports.driven.ProbabilityTypePort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,11 +20,11 @@ class HigherWhenLastAppearanceIsOlderTest {
     private ProbabilityTypePort probabilityTypePort;
 
     @Mock
-    private NumberProbabilityListPort numberProbabilityListPort;
+    private ProbabilityTypeByDrawPort probabilityTypeByDrawPort;
 
     @BeforeEach
     void setUp() {
-        service = new HigherWhenLastAppearanceIsOlder(probabilityTypePort, numberProbabilityListPort);
+        service = new HigherWhenLastAppearanceIsOlder(probabilityTypePort, probabilityTypeByDrawPort);
         when(probabilityTypePort.getByCode(any())).thenReturn(new ProbabilityType());
     }
 

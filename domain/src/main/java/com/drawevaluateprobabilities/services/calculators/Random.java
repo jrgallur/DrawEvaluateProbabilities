@@ -1,19 +1,20 @@
 package com.drawevaluateprobabilities.services.calculators;
 
-import com.drawevaluateprobabilities.models.NumberProbabilityList;
+import com.drawevaluateprobabilities.models.ProbabilityTypeByDraw;
 import com.drawevaluateprobabilities.models.ProbabilityType;
 import com.drawevaluateprobabilities.models.types.TDateInteger;
 import com.drawevaluateprobabilities.ports.driven.ProbabilityTypePort;
+import com.drawevaluateprobabilities.services.calculators.ifaces.ProbabilityTypeIface;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
 @Service
-public class Random extends com.drawevaluateprobabilities.services.calculators.ifaces.ProbabilityType {
+public class Random extends ProbabilityTypeIface {
     public static final String TYPE_CODE = "0000";
     private ProbabilityType probabilityType;
 
-    private NumberProbabilityList numberProbabilityList;
+    private ProbabilityTypeByDraw probabilityTypeByDraw;
 
     protected Random(ProbabilityTypePort probabilityTypePort) {
         super(probabilityTypePort, null);
@@ -25,21 +26,21 @@ public class Random extends com.drawevaluateprobabilities.services.calculators.i
     }
 
     @Override
-    public NumberProbabilityList getNumberProbabilityListByDate(TDateInteger calculationDrawDate) {
-        if (numberProbabilityList==null) {
-            numberProbabilityList = new NumberProbabilityList();
-            numberProbabilityList.setCalculateDrawDate(calculationDrawDate);
+    public ProbabilityTypeByDraw getProbabilityTypeByDrawByDate(TDateInteger calculationDrawDate) {
+        if (probabilityTypeByDraw ==null) {
+            probabilityTypeByDraw = new ProbabilityTypeByDraw();
+            probabilityTypeByDraw.setCalculateDrawDate(calculationDrawDate);
 
-            BigDecimal uniformValue = BigDecimal.valueOf(1).divide(BigDecimal.valueOf(49), com.drawevaluateprobabilities.services.calculators.ifaces.ProbabilityType.DIVIDE_SCALE, com.drawevaluateprobabilities.services.calculators.ifaces.ProbabilityType.ROUNDING_MODE);
+            BigDecimal uniformValue = BigDecimal.valueOf(1).divide(BigDecimal.valueOf(49), ProbabilityTypeIface.DIVIDE_SCALE, ProbabilityTypeIface.ROUNDING_MODE);
 
             for (int index = 0; index < 49; index++) {
-                numberProbabilityList.setNumberProbability(index + 1, uniformValue);
+                probabilityTypeByDraw.setNumberProbability(index + 1, uniformValue);
             }
 
-            numberProbabilityList = correctStatistics(numberProbabilityList);
+            probabilityTypeByDraw = correctStatistics(probabilityTypeByDraw);
         }
-        numberProbabilityList.setCalculateDrawDate(calculationDrawDate);
+        probabilityTypeByDraw.setCalculateDrawDate(calculationDrawDate);
 
-        return numberProbabilityList;
+        return probabilityTypeByDraw;
     }
 }

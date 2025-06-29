@@ -6,7 +6,7 @@ import com.drawevaluateprobabilities.models.ProbabilityTypeWeight;
 import com.drawevaluateprobabilities.models.ProbabilityTypeCombination;
 import com.drawevaluateprobabilities.models.types.TDateInteger;
 import com.drawevaluateprobabilities.ports.driven.DrawDatasourcePort;
-import com.drawevaluateprobabilities.ports.driven.NumberProbabilityListPort;
+import com.drawevaluateprobabilities.ports.driven.ProbabilityTypeByDrawPort;
 import com.drawevaluateprobabilities.ports.driven.ProbabilityTypePort;
 import com.drawevaluateprobabilities.services.GenerateCombinationTypes;
 import com.drawevaluateprobabilities.services.calculators.HigherWhenLastAppearanceIsOlder;
@@ -24,7 +24,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CalculateProbabilities {
     private final DrawDatasourcePort drawDatasourcePort;
-    private final NumberProbabilityListPort numberProbabilityListPort;
+    private final ProbabilityTypeByDrawPort probabilityTypeByDrawPort;
     private final ProbabilityTypePort probabilityTypePort;
 
 
