@@ -8,6 +8,6 @@ import java.math.BigDecimal;
 @Data
 @Builder
 public class ProbabilityTypeWeight {
-    NumberProbabilityType numberProbabilityType;
+    ProbabilityType probabilityType;
     BigDecimal weight;
 }

@@ -10,8 +10,8 @@ import javax.persistence.*;
 @Data
 @Builder
 @Entity
-@Table(name = "number_probability_type")
-public class NumberProbabilityTypeMO {
+@Table(name = "probability_type")
+public class ProbabilityTypeMO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Short id;

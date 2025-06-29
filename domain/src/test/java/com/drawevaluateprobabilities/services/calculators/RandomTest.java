@@ -1,9 +1,9 @@
 package com.drawevaluateprobabilities.services.calculators;
 
-import com.drawevaluateprobabilities.models.NumberProbabilityList;
-import com.drawevaluateprobabilities.models.NumberProbabilityType;
+import com.drawevaluateprobabilities.models.ProbabilityTypeByDraw;
+import com.drawevaluateprobabilities.models.ProbabilityType;
 import com.drawevaluateprobabilities.models.types.TDateInteger;
-import com.drawevaluateprobabilities.ports.driven.NumberProbabilityTypePort;
+import com.drawevaluateprobabilities.ports.driven.ProbabilityTypePort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,12 +20,12 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class RandomTest {
     @Mock
-    private NumberProbabilityTypePort numberProbabilityTypePort;
+    private ProbabilityTypePort probabilityTypePort;
     private Random service;
 
     @BeforeEach
     void setUp() {
-        service = new Random(numberProbabilityTypePort);
+        service = new Random(probabilityTypePort);
     }
 
     @Test
@@ -35,19 +35,19 @@ class RandomTest {
 
     @Test
     void t2() {
-        when(numberProbabilityTypePort.getByCode(any())).thenReturn(NumberProbabilityType.builder().code("XXXX").build());
+        when(probabilityTypePort.getByCode(any())).thenReturn(ProbabilityType.builder().code("XXXX").build());
 
-        assertEquals("XXXX", service.getNumberProbabilityType().getCode());
-        assertEquals("XXXX", service.getNumberProbabilityType().getCode());
-        verify(numberProbabilityTypePort, times(1)).getByCode(any());
+        assertEquals("XXXX", service.getProbabilityType().getCode());
+        assertEquals("XXXX", service.getProbabilityType().getCode());
+        verify(probabilityTypePort, times(1)).getByCode(any());
     }
 
     @Test
     void t3() {
-        NumberProbabilityList numberProbabilityList = service.getNumberProbabilityListByDate(TDateInteger.today());
-        assertNotNull(numberProbabilityList.getNumberList());
-        assertEquals(49, numberProbabilityList.getNumberList().size());
-        assertEquals(0, BigDecimal.ONE.compareTo(numberProbabilityList.getNumberList().stream().reduce(BigDecimal.ZERO, BigDecimal::add)));
+        ProbabilityTypeByDraw probabilityTypeByDraw = service.getProbabilityTypeByDrawByDate(TDateInteger.today());
+        assertNotNull(probabilityTypeByDraw.getNumberList());
+        assertEquals(49, probabilityTypeByDraw.getNumberList().size());
+        assertEquals(0, BigDecimal.ONE.compareTo(probabilityTypeByDraw.getNumberList().stream().reduce(BigDecimal.ZERO, BigDecimal::add)));
     }
 
 }
