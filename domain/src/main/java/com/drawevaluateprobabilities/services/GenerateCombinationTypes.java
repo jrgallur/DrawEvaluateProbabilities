@@ -2,20 +2,20 @@ package com.drawevaluateprobabilities.services;
 
 import com.drawevaluateprobabilities.models.NumberProbabilityType;
 import com.drawevaluateprobabilities.models.ProbabilityTypeWeight;
-import com.drawevaluateprobabilities.models.ProbabilityTypeWeightCombination;
+import com.drawevaluateprobabilities.models.ProbabilityTypeCombination;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GenerateProbabilityTypesCombination {
+public class GenerateCombinationTypes {
     private static final BigDecimal STEP = BigDecimal.valueOf(0.1);
 
-    private GenerateProbabilityTypesCombination() {
+    private GenerateCombinationTypes() {
         throw new IllegalStateException("Utility class");
     }
 
-    public static List<ProbabilityTypeWeightCombination> getCombinations(List<NumberProbabilityType> numberProbabilityTypeList) {
+    public static List<ProbabilityTypeCombination> getCombinationsFromTypeList(List<NumberProbabilityType> numberProbabilityTypeList) {
         return new ArrayList<>(getCombinationsOrderN(numberProbabilityTypeList));
     }
 
@@ -24,8 +24,8 @@ public class GenerateProbabilityTypesCombination {
      * The sum of all of them must be 1
      * The vales must be STEP multiples (0, 0.1, 0.2, ..., 0.9, 1.0)
      */
-    public static List<ProbabilityTypeWeightCombination> getCombinationsOrderN(List<NumberProbabilityType> types) {
-        List<ProbabilityTypeWeightCombination> result = new ArrayList<>();
+    public static List<ProbabilityTypeCombination> getCombinationsOrderN(List<NumberProbabilityType> types) {
+        List<ProbabilityTypeCombination> result = new ArrayList<>();
 
         generateCombinations(types, new ArrayList<>(), BigDecimal.ZERO, STEP, result);
         return result;
@@ -35,7 +35,7 @@ public class GenerateProbabilityTypesCombination {
                                       List<BigDecimal> currentWeights,
                                       BigDecimal currentSum,
                                       BigDecimal step,
-                                      List<ProbabilityTypeWeightCombination> result) {
+                                      List<ProbabilityTypeCombination> result) {
         int index = currentWeights.size();
         int size = types.size();
 
@@ -48,7 +48,7 @@ public class GenerateProbabilityTypesCombination {
                 List<BigDecimal> finalWeights = new ArrayList<>(currentWeights);
                 finalWeights.add(lastWeight);
 
-                ProbabilityTypeWeightCombination combination = new ProbabilityTypeWeightCombination();
+                ProbabilityTypeCombination combination = new ProbabilityTypeCombination();
                 for (int i = 0; i < size; i++) {
                     combination.addProbabilityTypeWeight(
                             ProbabilityTypeWeight.builder()

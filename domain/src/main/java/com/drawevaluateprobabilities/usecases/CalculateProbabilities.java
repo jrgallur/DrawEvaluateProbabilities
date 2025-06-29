@@ -3,14 +3,13 @@ package com.drawevaluateprobabilities.usecases;
 import com.drawevaluateprobabilities.models.DrawList;
 import com.drawevaluateprobabilities.models.NumberProbabilityType;
 import com.drawevaluateprobabilities.models.ProbabilityTypeWeight;
-import com.drawevaluateprobabilities.models.ProbabilityTypeWeightCombination;
+import com.drawevaluateprobabilities.models.ProbabilityTypeCombination;
 import com.drawevaluateprobabilities.models.types.TDateInteger;
 import com.drawevaluateprobabilities.ports.driven.DrawDatasourcePort;
 import com.drawevaluateprobabilities.ports.driven.NumberProbabilityListPort;
 import com.drawevaluateprobabilities.ports.driven.NumberProbabilityTypePort;
-import com.drawevaluateprobabilities.services.GenerateProbabilityTypesCombination;
+import com.drawevaluateprobabilities.services.GenerateCombinationTypes;
 import com.drawevaluateprobabilities.services.calculators.HigherWhenLastAppearanceIsOlder;
-import com.drawevaluateprobabilities.services.calculators.ifaces.ProbabilityType;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +18,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import static com.drawevaluateprobabilities.services.GenerateProbabilityTypesCombination.getCombinations;
 
 @Slf4j
 @Service
@@ -59,11 +54,11 @@ public class CalculateProbabilities {
             log.info(numberProbabilityType.getCode());
         }
         log.info("#######");
-        List<ProbabilityTypeWeightCombination> probabilityTypeWeightCombinationList =  GenerateProbabilityTypesCombination.getCombinations(numberProbabilityTypeList);
+        List<ProbabilityTypeCombination> probabilityTypeCombinationList =  GenerateCombinationTypes.getCombinationsFromTypeList(numberProbabilityTypeList);
         int cont = 1;
-        for (ProbabilityTypeWeightCombination probabilityTypeWeightCombination : probabilityTypeWeightCombinationList) {
+        for (ProbabilityTypeCombination probabilityTypeCombination : probabilityTypeCombinationList) {
             String result = String.valueOf(cont) + ": ";
-            List<ProbabilityTypeWeight> probabilityTypeWeightList = probabilityTypeWeightCombination.getCombination();
+            List<ProbabilityTypeWeight> probabilityTypeWeightList = probabilityTypeCombination.getCombination();
             for (ProbabilityTypeWeight probabilityTypeWeight : probabilityTypeWeightList) {
                 result += probabilityTypeWeight.getNumberProbabilityType().getCode() + "-" + probabilityTypeWeight.getWeight() + " ";
             }

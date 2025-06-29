@@ -85,12 +85,6 @@
             <version>4.5.1</version>
             <scope>test</scope>
         </dependency>
-
-        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-            <version>8.5.13</version>
-        </dependency>
     </dependencies>
 
     <!-- Para el lombok + mapstruct. En caso contrario, no falla al compilar, pero no genera los getters y setters para que el mapstruct haga el mapeo -->
